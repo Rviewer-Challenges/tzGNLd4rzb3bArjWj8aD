@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">GeckoMemory</string>
+
+    <!--region MainActivity-->
+    <string name="ma_title">GECKO MEMORY</string>
+    <string name="ma_high_score">Current high score: %d</string>
+    <string name="ma_easy">Easy</string>
+    <string name="ma_medium">Medium</string>
+    <string name="ma_hard">Hard</string>
+    <string name="ma_createdBy">Created by AdverseGecko3</string>
+    <!--endregion-->
+
+    <!--region GameActivity-->
+    <string name="ga_back">Back</string>
+    <string name="ga_moves">Moves left: %d</string>
+    <string name="ga_pairs">Pairs left: %d</string>
+    <!--endregion-->
+
+    <!--region CustomDialog-->
+    <string name="bd_title">DialogTitle</string>
+    <string name="bd_content">DialogContent</string>
+    <string name="bd_negative">DialogNegative</string>
+    <string name="bd_positive">DialogPositive</string>
+    <!--endregion-->
+
 </resources>

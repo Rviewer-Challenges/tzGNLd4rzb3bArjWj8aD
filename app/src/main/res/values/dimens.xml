@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius">12dp</dimen>
+    <dimen name="padding_card">8dp</dimen>
+    <dimen name="stroke_width">2dp</dimen>
+</resources>

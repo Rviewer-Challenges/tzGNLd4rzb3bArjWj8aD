@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8sp"
     tools:context=".ui.GameActivity">
 
     <Button
@@ -64,7 +63,6 @@
 
     </LinearLayout>
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glTop2"
         android:layout_width="wrap_content"
@@ -75,10 +73,58 @@
     <GridLayout
         android:id="@+id/grlTable"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:useDefaultMargins="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/glTop2" />
+        app:layout_constraintTop_toBottomOf="@id/glTop2">
+
+        <!--<RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardviewFront"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:id="@+id/ivCardFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/card_front_border"
+                    android:cropToPadding="true"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/card_front_image_f1_alonso" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardviewBack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:id="@+id/ivCardBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/card_front_border"
+                    android:cropToPadding="true"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/card_back" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>-->
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

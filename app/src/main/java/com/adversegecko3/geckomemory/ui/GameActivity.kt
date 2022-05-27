@@ -3,10 +3,11 @@ package com.adversegecko3.geckomemory.ui
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Gravity.CENTER
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import com.adversegecko3.geckomemory.R
 import com.adversegecko3.geckomemory.databinding.ActivityGameBinding
+import com.google.android.material.imageview.ShapeableImageView
 import java.lang.reflect.Field
 import kotlin.properties.Delegates
 
@@ -22,10 +24,7 @@ class GameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGameBinding
     private var tableSize by Delegates.notNull<Int>()
-
-    private lateinit var front_anim: AnimatorSet
-    private lateinit var back_anim: AnimatorSet
-    var isFront = false
+    private var cards = mutableListOf<Card>()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +41,7 @@ class GameActivity : AppCompatActivity() {
         setImages(images)
 
         binding.btnBack.setOnClickListener {
-            CustomDialog(
-                "Leave game?",
-                "Are you sure you want to leave the game?",
-                "Yes",
-                "No",
-                onSubmitClickListener = {
-                    onBackPressed()
-                }
-            ).show(supportFragmentManager, "dialog")
+            onBackPressed()
         }
 
         binding.sbTime.setOnTouchListener { _, _ -> true }
@@ -59,7 +50,11 @@ class GameActivity : AppCompatActivity() {
     private fun createTable(gameType: Int) {
         var col = 0
         var row = 0
-        val screenWidth = resources.displayMetrics.widthPixels
+        val screenWidth = resources.displayMetrics.widthPixels - (TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            8F,
+            resources.displayMetrics
+        ) * 2).toInt()
 
         when (gameType) {
             0 -> {
@@ -81,7 +76,9 @@ class GameActivity : AppCompatActivity() {
         }
         tableSize = col * row
 
-        for (i in 1..tableSize) {
+        for (i in 0 until tableSize) {
+            cards.add(Card(i))
+
             val rv = RelativeLayout(this).apply {
                 val layRV = LinearLayout.LayoutParams(
                     screenWidth / col,
@@ -100,22 +97,24 @@ class GameActivity : AppCompatActivity() {
                 layoutParams = layCVF
                 radius = resources.getDimension(R.dimen.corner_radius)
                 cardElevation = 0F
+                alpha = 0F
                 setCardBackgroundColor(Color.TRANSPARENT)
-                id = R.id.cvCardFront
+                tag = "cvFront$i"
             }
 
-            val ivFront = ImageView(this).apply {
+            val ivFront = ShapeableImageView(this).apply {
                 val layIVF = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
-                )
-                layIVF.gravity = CENTER
+                ).apply {
+                    gravity = CENTER
+                }
                 layoutParams = layIVF
-                background = ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.card_front_border,
-                    null
-                )
+                shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(resources.getDimension(R.dimen.corner_radius))
+                    .build()
+                strokeWidth = resources.getDimension(R.dimen.stroke_width)
+                strokeColor = ColorStateList.valueOf(resources.getColor(R.color.border, null))
                 setImageDrawable(
                     ResourcesCompat.getDrawable(
                         resources,
@@ -123,7 +122,7 @@ class GameActivity : AppCompatActivity() {
                         null
                     )
                 )
-                id = R.id.ivCardFront
+                tag = "ivFront$i"
             }
             cvFront.addView(ivFront)
 
@@ -136,21 +135,22 @@ class GameActivity : AppCompatActivity() {
                 radius = resources.getDimension(R.dimen.corner_radius)
                 cardElevation = 0F
                 setCardBackgroundColor(Color.TRANSPARENT)
-                id = R.id.cvCardBack
+                tag = "cvBack$i"
             }
 
-            val ivBack = ImageView(this).apply {
+            val ivBack = ShapeableImageView(this).apply {
                 val layIVB = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
-                )
-                layIVB.gravity = CENTER
+                ).apply {
+                    gravity = CENTER
+                }
                 layoutParams = layIVB
-                background = ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.card_front_border,
-                    null
-                )
+                shapeAppearanceModel = this.shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(resources.getDimension(R.dimen.corner_radius))
+                    .build()
+                strokeWidth = resources.getDimension(R.dimen.stroke_width)
+                strokeColor = ColorStateList.valueOf(resources.getColor(R.color.border, null))
                 setImageDrawable(
                     ResourcesCompat.getDrawable(
                         resources,
@@ -158,38 +158,36 @@ class GameActivity : AppCompatActivity() {
                         null
                     )
                 )
-                id = R.id.ivCardBack
+                tag = "ivBack$i"
             }
             cvBack.addView(ivBack)
-
-            front_anim = AnimatorInflater.loadAnimator(
-                applicationContext,
-                R.animator.animator_front
-            ) as AnimatorSet
-            back_anim = AnimatorInflater.loadAnimator(
-                applicationContext,
-                R.animator.animator_back
-            ) as AnimatorSet
-            val scale = resources.displayMetrics.density
 
             rv.addView(cvFront)
             rv.addView(cvBack)
             rv.setOnClickListener {
-                val front = it.findViewById<CardView>(R.id.cvCardFront)
-                val back = it.findViewById<CardView>(R.id.cvCardBack)
-                front.cameraDistance = 8000 * scale
-                back.cameraDistance = 8000 * scale
-                isFront = if (isFront) {
-                    front_anim.setTarget(front)
-                    back_anim.setTarget(back)
-                    front_anim.start()
-                    back_anim.start()
+                val front = it.findViewWithTag<CardView>("cvFront$i")
+                val back = it.findViewWithTag<CardView>("cvBack$i")
+
+                val frontAnim = AnimatorInflater.loadAnimator(
+                    applicationContext,
+                    R.animator.animator_front
+                ) as AnimatorSet
+                val backAnim = AnimatorInflater.loadAnimator(
+                    applicationContext,
+                    R.animator.animator_back
+                ) as AnimatorSet
+
+                cards[i].isShown = if (cards[i].isShown) {
+                    frontAnim.setTarget(front)
+                    backAnim.setTarget(back)
+                    frontAnim.start()
+                    backAnim.start()
                     false
                 } else {
-                    front_anim.setTarget(back)
-                    back_anim.setTarget(front)
-                    front_anim.start()
-                    back_anim.start()
+                    frontAnim.setTarget(back)
+                    backAnim.setTarget(front)
+                    frontAnim.start()
+                    backAnim.start()
                     true
                 }
             }
@@ -222,22 +220,29 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun setImages(images: MutableList<Int>) {
-        /*for (i in 0 until binding.grlTable.childCount) {
+        for (i in 0 until binding.grlTable.childCount) {
             val rv = binding.grlTable.getChildAt(i) as RelativeLayout
-            println("H - ${rv.javaClass.simpleName} - ${rv.childCount}")
-            println("RV - ${rv.getChildAt(0).id} - ${rv.getChildAt(1).id}")
-            println("RV - ${rv.getChildAt(0).javaClass.simpleName} - ${rv.getChildAt(1).javaClass.simpleName}")
-            val cv = rv.getChildAt(0) as CardView
-            println("H - ${cv.javaClass.simpleName}")
-            val iv = cv.findViewById<ImageView>(R.id.ivCardFront)
-            println("H - ${iv.javaClass.simpleName}")
+            val iv = rv.findViewWithTag<ShapeableImageView>("ivFront$i")
+            cards[i].image = images[i]
             iv.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     resources,
-                    images[i % tableSize / 2],
+                    images[i],
                     null
                 )
             )
-        }*/
+        }
+    }
+
+    override fun onBackPressed() {
+        CustomDialog(
+            "Leave game?",
+            "Are you sure you want to leave the game?",
+            "Yes",
+            "No",
+            onSubmitClickListener = {
+                super.onBackPressed()
+            }
+        ).show(supportFragmentManager, "dialog")
     }
 }

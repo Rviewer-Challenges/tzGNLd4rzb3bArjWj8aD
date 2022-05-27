@@ -200,6 +200,7 @@ class GameActivity : AppCompatActivity() {
         allImages.shuffle()
         allImages.subList(totalPairs - 1, allImages.lastIndex).clear()
         allImages.addAll(allImages)
+        allImages.shuffle()
         return allImages
     }
 

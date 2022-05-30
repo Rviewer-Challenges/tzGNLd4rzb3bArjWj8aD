@@ -12,7 +12,7 @@
 
     <!--region GameActivity-->
     <string name="ga_back">Back</string>
-    <string name="ga_moves">Moves left: %d</string>
+    <string name="ga_moves">Moves made: %d</string>
     <string name="ga_pairs">Pairs left: %d</string>
     <!--endregion-->
 
@@ -21,6 +21,11 @@
     <string name="bd_content">DialogContent</string>
     <string name="bd_negative">DialogNegative</string>
     <string name="bd_positive">DialogPositive</string>
+    <!--endregion-->
+
+    <!--region Preferences-->
+    <string name="pref_key">userPrefs</string>
+    <string name="pref_high_score">prefHighScore</string>
     <!--endregion-->
 
 </resources>

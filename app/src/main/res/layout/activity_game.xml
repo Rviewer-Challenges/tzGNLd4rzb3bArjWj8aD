@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".ui.GameActivity">
+    tools:context=".ui.activity.GameActivity">
 
     <Button
         android:id="@+id/btnBack"
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8sp"
-        android:padding="1dp"
+        android:paddingVertical="1dp"
         android:text="@string/ga_back"
         app:layout_constraintBottom_toTopOf="@+id/glTop1"
         app:layout_constraintEnd_toStartOf="@+id/sbTime"

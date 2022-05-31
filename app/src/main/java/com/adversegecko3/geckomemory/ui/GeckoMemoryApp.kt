@@ -14,14 +14,10 @@ class GeckoMemoryApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // Initialize the companion object variables with the applicationContext, the system resources and the Preferences
 
-        // Get application context
         mAppContext = applicationContext
-
-        // Get system resources
         mResources = resources
-
-        // Set a Preferences instance
         mPrefs = Preferences(applicationContext)
     }
 }

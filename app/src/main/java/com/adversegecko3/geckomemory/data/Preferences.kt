@@ -9,14 +9,14 @@ class Preferences(context: Context) {
         context.getString(R.string.pref_key), Context.MODE_PRIVATE
     )!!
 
-    fun getHighScore(): Int {
-        return userPrefs.getInt(mResources.getString(R.string.pref_high_score), 0)
+    fun getWins(): Int {
+        return userPrefs.getInt(mResources.getString(R.string.pref_wins), 0)
     }
 
-    fun setHighScore(highScore: Int) {
+    fun setWins(wins: Int) {
         userPrefs
             .edit()
-            .putInt(mResources.getString(R.string.pref_high_score), highScore)
+            .putInt(mResources.getString(R.string.pref_wins), wins)
             .apply()
     }
 }

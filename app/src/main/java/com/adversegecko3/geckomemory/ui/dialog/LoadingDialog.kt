@@ -12,6 +12,8 @@ class LoadingDialog(mActivity: Activity) {
     private var dialog: AlertDialog
 
     init {
+        // Create a simple Dialog that displays and indeterminate circular ProgressBar
+        // Also it cannot be canceled when touching the screen
         val builder = AlertDialog.Builder(mActivity)
         val inflater = mActivity.layoutInflater
         builder.setView(inflater.inflate(R.layout.dialog_loading, null))

@@ -16,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvHighScore.text =
-            resources.getString(R.string.ma_high_score, mPrefs.getHighScore())
-
+        // Create GameActivity sending an Int parameter depending on difficulty
         binding.apply {
             btnEasy.setOnClickListener {
                 launchGameActivity(0)
@@ -33,8 +31,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchGameActivity(gameType: Int) {
+        // Intent GameActivity with the desired parameter
         val i = Intent(this, GameActivity::class.java)
         i.putExtra("gameType", gameType)
         startActivity(i)
+    }
+
+    private fun updateWins() {
+        // Update wins TextView
+        binding.tvHighScore.text = resources.getString(R.string.ma_wins, mPrefs.getWins())
+    }
+
+    override fun onResume() {
+        // When app is resumed (mainly when launching app or returning from GameActivity)
+        // call update Wins
+        super.onResume()
+        updateWins()
     }
 }

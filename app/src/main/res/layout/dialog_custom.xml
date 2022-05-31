@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="16sp">
 
     <com.google.android.material.card.MaterialCardView
         style="@style/SalmonOutlinedButton"
@@ -35,42 +36,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
+                android:gravity="center"
                 android:text="@string/bd_content"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
-                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvContent">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnNegativeButton"
-                    style="@style/SalmonOutlinedButton"
+                <LinearLayout
+                    android:id="@+id/llBothButtons"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8sp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/bd_negative" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNegativeButton"
+                        style="@style/SalmonOutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8sp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/bd_negative" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPositiveButton"
+                        style="@style/SalmonOutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8sp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/bd_positive" />
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPositiveButton"
+                    android:id="@+id/btnNeutralButton"
                     style="@style/SalmonOutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8sp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/bd_positive" />
-            </LinearLayout>
+                    android:text="@string/bd_negative"
+                    android:visibility="gone" />
+            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

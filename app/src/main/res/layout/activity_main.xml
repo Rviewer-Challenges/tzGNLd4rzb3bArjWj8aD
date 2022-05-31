@@ -9,6 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fontFamily="@font/cairo"
         android:gravity="center"
         android:text="@string/ma_title"
         android:textColor="@color/salmon"
@@ -16,7 +17,8 @@
         app:layout_constraintBottom_toTopOf="@id/glHalf1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lineHeight="50sp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glHalf1"
@@ -29,7 +31,7 @@
         android:id="@+id/tvHighScore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="@string/ma_high_score"
+        android:text="@string/ma_wins"
         android:textColor="@color/salmon"
         android:gravity="center"
         android:textSize="22sp"

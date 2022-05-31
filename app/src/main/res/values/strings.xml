@@ -3,7 +3,7 @@
 
     <!--region MainActivity-->
     <string name="ma_title">GECKO MEMORY</string>
-    <string name="ma_high_score">Current high score: %d</string>
+    <string name="ma_wins">Current wins: %d</string>
     <string name="ma_easy">Easy</string>
     <string name="ma_medium">Medium</string>
     <string name="ma_hard">Hard</string>
@@ -25,7 +25,7 @@
 
     <!--region Preferences-->
     <string name="pref_key">userPrefs</string>
-    <string name="pref_high_score">prefHighScore</string>
+    <string name="pref_wins">prefWins</string>
     <!--endregion-->
 
 </resources>

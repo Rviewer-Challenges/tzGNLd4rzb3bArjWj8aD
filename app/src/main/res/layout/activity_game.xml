@@ -16,15 +16,19 @@
         android:paddingVertical="1dp"
         android:text="@string/ga_back"
         app:layout_constraintBottom_toTopOf="@+id/glTop1"
-        app:layout_constraintEnd_toStartOf="@+id/sbTime"
+        app:layout_constraintEnd_toStartOf="@+id/pbTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SeekBar
-        android:id="@+id/sbTime"
+    <ProgressBar
+        android:id="@+id/pbTime"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8sp"
+        android:layout_marginHorizontal="16sp"
+        android:max="60000"
+        android:progress="60000"
+        android:progressTint="@color/salmon"
         app:layout_constraintBottom_toTopOf="@+id/glTop1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
@@ -46,21 +50,27 @@
         app:layout_constraintTop_toBottomOf="@id/glTop1">
 
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/tvMoves"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/ga_moves" />
+            app:ticker_animationDuration="250"
+            app:ticker_defaultCharacterList="number"
+            app:ticker_defaultPreferredScrollingDirection="down"
+            tools:text="@string/ga_moves" />
 
-        <TextView
+        <com.robinhood.ticker.TickerView
             android:id="@+id/tvPairs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/ga_pairs" />
+            app:ticker_animationDuration="250"
+            app:ticker_defaultCharacterList="number"
+            app:ticker_defaultPreferredScrollingDirection="up"
+            tools:text="@string/ga_pairs" />
 
     </LinearLayout>
 
